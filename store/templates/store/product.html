@@ -1,0 +1,83 @@
+{% extends 'store/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JCPC | Homepage</title>
+
+</head>
+
+<body>
+
+    {% block content %}
+    {% for product in products%}
+        <div class="modal fade" id="productModal{{product.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog product-modal">
+       <div class="modal-content product-modal">
+         <div class="modal-header product-modal">
+           <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <i class="fas fa-times" data-dismiss="modal" aria-label="Close" ></i>
+         </div>
+                    <div class="modal-row g-0">
+                <div class="col-md-4">
+                    <img src="{{product.imageURL}}" class="img-fluid img-thumbnail img-browse" alt="..." style=" height:280px !important;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h6><strong>{{product.name}}</strong></h6>
+                        <p></b>{{product.product_category}}</b></p>
+                        <p class="card-text"><strong>{{product.price_display}}</strong></p>
+                        {% if product.product_stock_status %}
+                        <p class="card-text"><small class="text-success">Available in Stock</small></p>
+                        <a data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</a>
+                        {% else %}
+                        <p class="card-text"><small class="text-muted">Not Available</small></p>
+                        {% endif %}<hr>
+                        <p class="card-text">{{product.description}}</p>
+                    </div>
+                </div>
+            </div>
+         <div class="modal-footer product-modal">
+         </div>
+       </div>
+     </div>
+   </div>
+     
+        {% endfor %}
+
+<div class="row">
+        {% for product in products%}
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{product.imageURL}}" class="img-fluid img-thumbnail img-browse" alt="..." style=" height:280px !important;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h6><strong>{{product.name}}</strong></h6>
+                        <p></b>{{product.product_category}}</b></p>
+                        <p class="card-text">{{product.shortDesc}}</p>
+                        <p class="card-text"><strong>{{product.price_display}}</strong></p>
+                        {% if product.product_stock_status %}
+                        <p class="card-text"><small class="text-success">Available in Stock</small></p>
+                        <a data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</a>
+                        {% else %}
+                        <p class="card-text"><small class="text-muted">Not Available</small></p>
+                        {% endif %}
+
+                        <a class="btn btn-outline-secondary" data-toggle="modal" data-target="#productModal{{product.id}}">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock content %}
+</body>
+
+</html>
